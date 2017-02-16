@@ -108,7 +108,6 @@ static InternalImageType :: Pointer CreateMask(InternalImageType :: Pointer imag
 		EllipsoidFunctionType>(sourceImage, spatialFunc, seed);
 
 	//std::cout << "Seed position : " << seed << std::endl;
-
 	// Iterate through the entire image and set interior pixels to 1
 	int numInteriorPixels1 = 0;
 	unsigned char interiorPixelValue = 1;
