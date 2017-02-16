@@ -116,23 +116,6 @@ static  OutputImageType::Pointer watershedSegmentation(InternalImageType::Pointe
 	std::string temp = ss.str();
 	string waterShedfile = filename + temp + "watershed.nii.gz";
 	Write(watershedFilter->GetOutput(),waterShedfile);
-	//region = watershedFilter->GetOutput()->get
-	//typedef itk::CastImageFilter< InternalImageType, OutputImageType > CastingFilterType2;
-	//CastingFilterType2::Pointer Castingfilter2 = CastingFilterType2::New();
-	//Castingfilter2->SetInput(watershedFilter->GetOutput());
-	//Castingfilter2->Update();
-	////Seed Label
-	//// WriteDiacomImage(watershedFilter->GetOutput(),waterShedfile);
-	//try
-	//{
-	//	toolsITK::writeDCMITKImage(Castingfilter2->GetOutput(), waterShedfile);
-	//}
-	//catch (itk::ExceptionObject & e)
-	//{
-	//	std::cerr << "exception in file writer " << std::endl;
-	//	std::cerr << e << std::endl;
-	//	return 0;
-	//}
 	OutputPixelType valueInten = watershedFilter->GetOutput()->GetPixel(seed);
 	//cout << "the label value is   " << valueInten << endl;
 	myfile2 << "the label value is   " << valueInten << endl;
@@ -156,22 +139,5 @@ static  OutputImageType::Pointer watershedSegmentation(InternalImageType::Pointe
 	//std::cout << "...threshold Success(" << t.GetMean() << " s./" << t.GetMean() / 60.0 << " min.)" << std::endl;
 	myfile2 << "...threshold Success(" << t.GetMean() << " s./" << t.GetMean() / 60.0 << " min.)" << std::endl;
 
-	//// Compute some statistics
-	//double sourceImageSpacing[] = { image->GetSpacing()[0],image->GetSpacing()[1],image->GetSpacing()[2] };  // (pixels)
-	//																										 //std::cout<< "Image spacing: " << sourceImageSpacing[0] << " x " << sourceImageSpacing[1] << " x " << sourceImageSpacing[2] << " mm^3" << std::endl;
-	//getVolume(thresholdFilter->GetOutput(), sourceImageSpacing);
-	//ss.str(""); temp.clear(); waterShedfile.clear();
-	//ss << "_" << iterations; temp = ss.str();
-	//waterShedfile = filename + temp + "_segmented.dcm";
-	//try
-	//{
-	//	toolsITK::writeDCMITKImage(thresholdFilter->GetOutput(), waterShedfile);
-	//}
-	//catch (itk::ExceptionObject & e)
-	//{
-	//	std::cerr << "exception in file writer " << std::endl;
-	//	std::cerr << e << std::endl;
-	//	return NULL;
-	//}
 	return thresholdFilter->GetOutput();
 }
