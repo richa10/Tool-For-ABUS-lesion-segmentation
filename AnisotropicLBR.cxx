@@ -72,7 +72,6 @@ static  InternalImageType::Pointer coherenceAnisotropic(InternalImageType::Point
 
 static InternalImageType::Pointer anisotropicDiffusion(InternalImageType::Pointer imagei, float conductance, int iterations)
 {
-	          
 	//Anisotropic Difussion (smooth the image)
 	typedef itk::GradientAnisotropicDiffusionImageFilter<InternalImageType, InternalImageType> FilterType;
 	FilterType::Pointer anisotropic = FilterType::New();
