@@ -94,29 +94,10 @@ int main(int argc, char *argv[])
 	sigMuStdseed = getMuSigma(MaskImage);
 	myfile2 << "75 mm mask's mean and std ###############################------------"<< "," <<"," << sigMuStdseed[0] << " , " << sigMuStdseed[1] << std::endl;
 	cout << "75 mm  mask's mean and std ###############################------------" << "," << "," << sigMuStdseed[0] << " , " << sigMuStdseed[1] << std::endl;
-	double diffparam = (sigMuStdseed[0] - sigMuStdseed[1])*0.01;
-	cout << "diffparam  " << diffparam << endl;
-	myfile2 << "diffparam " << "," << diffparam << endl;
-
+	
 	float conductance =3;
 	int iterations =20;
 
-	/*if (diffparam < 0.3)
-	{
-		conductance = 3;
-			iterations = 15;
-	}
-	else if (noiseScale > 0.95)
-	else if (0.3 <= diffparam && diffparam < 0.7)
-	{
-		conductance = 3;
-		iterations = 15;
-	}
-	else
-	{
-		conductance = 3;
-		iterations = 15;
-	}*/
 	cout << "conductance::" << conductance << endl;
 	cout << "iterations :: " << iterations << endl;
 	myfile2 << "conductance::" << conductance << endl;
@@ -130,11 +111,7 @@ int main(int argc, char *argv[])
 	MaskImage = NULL;
 	sigMuStd[0] = 0; sigMuStd[1] = 0;
 	MaskImage = CreateMask(smoothimage, smoothimage, axesImage, seedPoint);
-	sigMuStd = getMuSigma(MaskImage);
-	myfile2 << "after smoothing ###############################------------" << ", " <<", "  << sigMuStd[0] << " , " << sigMuStd[1] << std::endl;
-	cout << "after smoothing ###############################------------" << ", " << ", " << sigMuStd[0] << " , " << sigMuStd[1] << std::endl;
-
-	
+		
 	//calculating the image and gt gradient image or height function
 	InternalImageType::Pointer  heightImage;
 	stn = "_GM.nii.gz";
@@ -153,71 +130,6 @@ int main(int argc, char *argv[])
 	segmentationImageWater = watershedSegmentation(maskSmoothImage, 0.005, 0.8, seedPoint, name);
 	string wa = "_watershedSgmentation.nii.gz";
 	Write(segmentationImageWater, name + wa);
-	//sigMuStd[0] = 0; sigMuStd[1] = 0;
-	//////creating the groundtruth Mask image to get the mean and standard deviation of the ground truth after gradient image
-	///*InternalImageType::Pointer MaskImageNew = CreateMask(heightImage, heightImage, axesSeed, seedPoint);
-	//stn = "maskSeedGM.nii.gz";
-	//Write(MaskImageNew, name + stn)*/;
-	//sigMuStd = getMuSigma(maskSmoothImage);
-
-	//myfile2 << "mu sigma near seed point at 10mm #########------------: " << sigMuStd[0] << " , " << sigMuStd[1] << "\n" << std::endl;
-	//cout << "mu sigma near seed point at 10mm #########------------: " << sigMuStd[0] << " , " << sigMuStd[1] << "\n" << std::endl;
-
-	//float k1, k2;
-	//k2 = sigMuStd[0];
-	//k1 = sigMuStd[0] - sigMuStd[1] * 3;
-	//float alpha, beta;
-	//alpha = (k2 - k1) / 6;
-	//beta = (k2 + k1) / 2;
-	//myfile2 << "k1, k2  #########------------: " << k1 << " , " << k2 << "\n" << std::endl;
-	//cout << "k1, k2  #########------------: " << k1 << " , " << k2 << "\n" << std::endl;
-	//myfile2 << "alpha, beta  #########------------: " << alpha << " , " << beta << "\n" << std::endl;
-	//cout << "alpha, beta  #########------------: " << alpha << " , " << beta << "\n" << std::endl;
-
-	//InternalImageType::Pointer  edgeImage, geoImage, FastMarchingImagegeo, FastMarchingImage, Fastimagegeo;
-
-	//edgeImage = sigmoid(maskSmoothImage, -alpha, beta, name);
-
-	//double stoppingTime = 30;
-	//FastMarchingImage = FastMarching(edgeImage, seedPoint, name, stoppingTime);
-	//segmentationImageFastMarch = ThresholdFilterFast(FastMarchingImage, seedPoint, stoppingTime);
-	////Fastimagegeo = ThresholdFilterFastGeo(FastMarchingImage, seedPoint, stoppingTime);
-
-	//string fa = "_segmented_fastMarching.nii.gz";
-	//Write(segmentationImageFastMarch, name + fa);
-	////string temp = "_inverstedFast.nii.gz";
-	////Write(Fastimagegeo, name + temp);
-
-	////typedef itk::SignedDanielssonDistanceMapImageFilter<
-	////	InternalImageType,
-	////	InternalImageType >  FilterTypeDaniel;
-	////FilterTypeDaniel::Pointer filterDaniel = FilterTypeDaniel::New();
-	////filterDaniel->SetInput(Fastimagegeo);
-	////filterDaniel->SetUseImageSpacing(TRUE);
-	//////filterDaniel->SetInsideIsPositive(TRUE);
-	////try {
-	////	filterDaniel->Update();
-	////}
-	////catch (itk::ExceptionObject & excep)
-	////{
-	////	std::cerr << "Exception caught in fast marching !" << std::endl;
-	////	std::cerr << excep << std::endl;
-	////}
-	////string temp1 = "_DanielDistance.nii.gz";
-	////Write(filterDaniel->GetOutput(), name + temp1);
-	////exit(1);
-	//FastMarchingImagegeo = FastMarchingGeo(edgeImage, seedPoint, name);
-
-	//geoImage = geodesicFilter(FastMarchingImagegeo, edgeImage, seedPoint, name);
-
-	//string t = "_geoImage.nii.gz";
-	//Write(geoImage, name + t);
-	//segmentationImageGeo = ThresholdFilterGeo(geoImage, seedPoint);
-	//string test = "_segmented_geodesic.nii.gz";
-	//Write(segmentationImageGeo, name + test);
-
-
-
 	cout << "Volume of the Gound truth... ";
 	myfile2 << "Volume of the Gound truth...";
 	float volumeGt = getVolume(gtImageout, sourceImageSpacing);
@@ -233,42 +145,14 @@ int main(int argc, char *argv[])
 	myfile2 << "Mean (dice)" << "," << vecWater[1] << "\n";
 	myfile2 << "False negative" << "," << vecWater[2] << "\n";
 	myfile2 << "False positive" << "," << vecWater[3] << "\n";
-
-	//myfile2 << "Volume of the geodesic segmentation... ";
-	//cout << "Volume of the geodesic segmentation... ";
-	//float volumeSegGeo = getVolume(segmentationImageGeo, sourceImageSpacing);
-
-	//float* vecGeo = 0;
-	//vecGeo = new float[3];
-	//vecGeo = evaluate(gtImageout, segmentationImageGeo);
-	//myfile2 << "Union (jaccard)" << "," << vecGeo[0] << "\n";
-	//myfile2 << "Mean (dice)" << "," << vecGeo[1] << "\n";
-	//myfile2 << "False negative" << "," << vecGeo[2] << "\n";
-	//myfile2 << "False positive" << "," << vecGeo[3] << "\n";
-
-	//myfile2 << "Volume of the fastmarching segmentation... ";
-	//cout << "Volume of the fastmarching segmentation... ";
-	//float volumeSegFast = getVolume(segmentationImageFastMarch, sourceImageSpacing);
-
-	//float* vecFast = 0;
-	//vecFast = new float[3];
-	//vecFast = evaluate(gtImageout, segmentationImageFastMarch);
-
-	//myfile2 << "Union (jaccard)" << "," << vecFast[0] << "\n";
-	//myfile2 << "Mean (dice)" << "," << vecFast[1] << "\n";
-	//myfile2 << "False negative" << "," << vecFast[2] << "\n";
-	//myfile2 << "False positive" << "," << vecFast[3] << "\n";
-
 	clock.Stop();
 
 	myfile2.close();
 
 	myfile2.open(argv[9], ios::out | ios::app);
-	myfile2 << argv[8] << "," << volumeGt << "," << sigMuStdseed[0] << "," << sigMuStdseed[1] << "," << diffparam << "," << conductance <<", "<<iterations<< "," << ",";
+	myfile2 << argv[8] << "," << volumeGt << "," << sigMuStdseed[0] << "," << sigMuStdseed[1] << "," << conductance <<", "<<iterations<< "," << ",";
 	myfile2 << vecWater[0] << "," << vecWater[1] << "," << vecWater[2] << "," << vecWater[3] << "," << volumeSegWater << "," << endl;
-	//myfile2 << vecGeo[0] << "," << vecGeo[1] << "," << vecGeo[2] << "," << vecGeo[3] << "," << volumeSegGeo << "," << ",";
-	//myfile2 << vecFast[0] << "," << vecFast[1] << "," << vecFast[2] << "," << vecFast[3] << "," << volumeSegFast << "," << endl;
-
+	
 	myfile2.close();
 
 
