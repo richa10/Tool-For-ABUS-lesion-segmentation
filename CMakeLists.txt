@@ -12,36 +12,13 @@ if (ITKVtkGlue_LOADED)
 endif()
 
 
-# add_executable(SegmentationABUS_fixedParam SegmentationABUS_fixedParam.cxx )
-# target_link_libraries(SegmentationABUS_fixedParam ${ITK_LIBRARIES})
-
-# add_executable(Segmentation_ABUS_Itera_sigma Segmentation_ABUS_Itera_sigma.cxx )
-# target_link_libraries(Segmentation_ABUS_Itera_sigma ${ITK_LIBRARIES})
-
-# add_executable(imagediff imagediff.cxx )
-# target_link_libraries(imagediff ${ITK_LIBRARIES})
-
-
-# add_executable(gradientcnr gradientcnr.cxx )
-# target_link_libraries(gradientcnr ${ITK_LIBRARIES})
-
 add_executable(AnisotropicMain AnisotropicMain.cxx )
 target_link_libraries(AnisotropicMain ${ITK_LIBRARIES})
 
 add_executable(ADLBRMain ADLBRMain.cxx )
 target_link_libraries(ADLBRMain ${ITK_LIBRARIES})
 
-# add_executable(AnisotropicMainTao AnisotropicMainTao.cxx )
-# target_link_libraries(AnisotropicMainTao ${ITK_LIBRARIES})
 
-# add_executable(ADLBRMainTao ADLBRMainTao.cxx )
-# target_link_libraries(ADLBRMainTao ${ITK_LIBRARIES})
+add_executable(OtherDenoisingMain OtherDenoisingMain.cxx )
+target_link_libraries(OtherDenoisingMain ${ITK_LIBRARIES})
 
-add_executable(FileSize FileSize.cxx )
-target_link_libraries(FileSize ${ITK_LIBRARIES})
-
-add_executable(ADLBRMainOld1411 ADLBRMainOld1411.cxx )
-target_link_libraries(ADLBRMainOld1411 ${ITK_LIBRARIES})
-
-add_executable(ADGaussian ADGaussian.cxx )
-target_link_libraries(ADGaussian ${ITK_LIBRARIES})
