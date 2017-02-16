@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
 		cout << "Input_image Output_image SeedX SeedY SeedZ" << std::endl;
 		return 0;
 	}
-	
 	itk::TimeProbe clock;
 	clock.Start();
 	char * name = argv[5];
